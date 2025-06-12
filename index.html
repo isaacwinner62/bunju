@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Login">
+    <meta property="og:description" content="Login to access your portfolio">
+    <meta property="og:image" content="https://res.cloudinary.com/dkfmaqtpy/image/upload/v1749761609/download_2_ipeyda.jpg">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+</head>
+<body>
+    <div class="container">
+        <form class="registration-form" id="loginForm">
+            <h2>Login </h2>
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+                <label for="number">Phone Number</label>
+                <input type="tel" id="number" name="number" placeholder="Enter your phone number" pattern="[0-9]{10}" required>
+            </div>
+            <button type="submit" class="submit-btn">Enter</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fullname = document.getElementById('fullname').value;
+            const password = document.getElementById('password').value;
+            const phoneNumber = document.getElementById('number').value;
+
+            // Basic validation
+            if (fullname && password && phoneNumber) {
+                // Phone number validation (10 digits)
+                if (/^\d{10}$/.test(phoneNumber)) {
+                    // If all validations pass, redirect to portfolio
+                    window.location.href = 'portfolio.html';
+                } else {
+                    alert('Please enter a valid 10-digit phone number');
+                }
+            } else {
+                alert('Please fill in all fields');
+            }
+        });
+    </script>
+</body>
+</html> 
