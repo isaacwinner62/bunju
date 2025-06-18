@@ -27,13 +27,22 @@
             </div>
             <div class="form-group">
                 <label for="number">Phone Number</label>
-                <input type="tel" id="number" name="number" placeholder="Enter your phone number" pattern="[0-9]{10}" required>
+                <input type="tel" id="number" name="number" placeholder="Enter your phone number" required>
             </div>
             <button type="submit" class="submit-btn">Enter</button>
         </form>
     </div>
 
     <script>
+        // Check if user is already logged in
+        window.addEventListener('DOMContentLoaded', function() {
+            const userData = localStorage.getItem('userData');
+            if (userData) {
+                // User is already logged in, redirect to portfolio
+                window.location.href = 'portfolio.html';
+            }
+        });
+
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -43,12 +52,21 @@
 
             // Basic validation
             if (fullname && password && phoneNumber) {
-                // Phone number validation (10 digits)
-                if (/^\d{10}$/.test(phoneNumber)) {
+                // Phone number validation (any length, but must contain only digits)
+                if (/^\d+$/.test(phoneNumber)) {
+                    // Store user data in localStorage
+                    const userData = {
+                        fullname: fullname,
+                        phoneNumber: phoneNumber,
+                        loginTime: new Date().toISOString()
+                    };
+                    
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                    
                     // If all validations pass, redirect to portfolio
                     window.location.href = 'portfolio.html';
                 } else {
-                    alert('Please enter a valid 10-digit phone number');
+                    alert('Please enter a valid phone number (digits only)');
                 }
             } else {
                 alert('Please fill in all fields');
